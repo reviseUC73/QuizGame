@@ -3,26 +3,34 @@ import 'package:adv_basics/View/Question/question_screen.dart';
 import 'package:flutter/material.dart';
 
 // Flutter creates Quiz object (StatefulWidget) #0
-class QuizTernaryExpression extends StatefulWidget {
-  const QuizTernaryExpression({super.key});
+class Quiz1 extends StatefulWidget {
+  const Quiz1({super.key});
 
   // create state -> obj of class #1
   @override
   State<StatefulWidget> createState() {
-    return _QuizTernaryExpressionState();
+    return _QuizState();
   }
 }
 
-class _QuizTernaryExpressionState extends State<QuizTernaryExpression> {
-  var activeScreen = "home-screen";
+class _QuizState extends State<Quiz1> {
+  // Widget? activeScreen;
+  Widget? activeScreen;
+
+// call initState #2
+  @override
+  void initState() {
+    super.initState();
+    activeScreen = HomeScreen(switchScreen);
+  }
 
   void switchScreen() {
     setState(() {
-      activeScreen = "question-screen";
+      activeScreen = QuestionScreen(onSelectAnswer: (String answer) {},);
     });
   }
 
-// build
+// build # 3
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,16 +39,14 @@ class _QuizTernaryExpressionState extends State<QuizTernaryExpression> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color.fromARGB(255, 217, 241, 223),
+                const Color.fromARGB(255, 216, 164, 164),
                 const Color.fromARGB(255, 160, 133, 214),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen == "home-screen"
-              ? HomeScreen(switchScreen)
-              : const QuestionScreen(),
+          child: activeScreen,
         ),
       ),
     );

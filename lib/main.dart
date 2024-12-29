@@ -1,4 +1,4 @@
-import 'package:adv_basics/quiz_ternary_expression_2.dart';
+import 'package:adv_basics/View/Root/quiz_ternary_expression_2.dart';
 import 'package:flutter/material.dart';
 
 void main() {

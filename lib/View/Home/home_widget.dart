@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeWidget extends StatelessWidget {
   final VoidCallback onPressed;
@@ -21,10 +22,11 @@ class HomeWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 60),
             child: Text(
               "Learn Flutter the fun way !",
-              style: const TextStyle(
-                fontSize: 30,
+              style: GoogleFonts.lato(
                 color: Colors.white,
-              ),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                ),
             ),
           ),
           const SizedBox(height: 30),

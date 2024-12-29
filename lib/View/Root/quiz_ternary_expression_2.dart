@@ -1,52 +1,73 @@
+import 'package:adv_basics/Data/question_data.dart';
 import 'package:adv_basics/View/Home/home_screen.dart';
 import 'package:adv_basics/View/Question/question_screen.dart';
+import 'package:adv_basics/View/Result/result_screen.dart';
 import 'package:flutter/material.dart';
 
 // Flutter creates Quiz object (StatefulWidget) #0
-class Quiz1 extends StatefulWidget {
-  const Quiz1({super.key});
+class QuizTernaryExpression2 extends StatefulWidget {
+  const QuizTernaryExpression2({super.key});
 
   // create state -> obj of class #1
   @override
   State<StatefulWidget> createState() {
-    return _QuizState();
+    return _QuizTernaryExpressionState2();
   }
 }
 
-class _QuizState extends State<Quiz1> {
-  // Widget? activeScreen;
-  Widget? activeScreen;
-
-// call initState #2
-  @override
-  void initState() {
-    super.initState();
-    activeScreen = HomeScreen(switchScreen);
-  }
+class _QuizTernaryExpressionState2 extends State<QuizTernaryExpression2> {
+  List<String> _selectedAnswers = [];
+  var activeScreen = "home-screen";
 
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionScreen();
+      activeScreen = "question-screen";
     });
   }
 
-// build # 3
+  void chooseAnswer(String answer) {
+    _selectedAnswers.add(answer);
+    if (_selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = "result-screen";
+      });
+    }
+  }
+
+  void resartQuiz() {
+    setState(() {
+      _selectedAnswers = [];
+      activeScreen = 'question-screen';
+    });
+  }
+// build # 1
   @override
   Widget build(BuildContext context) {
+    Widget screenWidget = HomeScreen(switchScreen);
+    if (activeScreen == "question-screen") {
+      screenWidget = QuestionScreen(
+        onSelectAnswer: chooseAnswer,
+      );
+    } else if (activeScreen == "result-screen") {
+      screenWidget = ResultScreen(
+        chosenAnswer: _selectedAnswers,
+        onRestart: resartQuiz,
+      );
+    }
     return MaterialApp(
       home: Scaffold(
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color.fromARGB(255, 216, 164, 164),
-                const Color.fromARGB(255, 160, 133, 214),
+                Colors.deepPurple.shade900,
+                Colors.deepPurple.shade600,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen,
+          child: screenWidget,
         ),
       ),
     );
